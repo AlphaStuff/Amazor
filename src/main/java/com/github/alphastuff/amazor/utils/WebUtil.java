@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class WebUtil {
     // lock class from being instanced
-    private WebUtil() {};
+    private WebUtil() {}
     public static String readRequestFromUrl(String web) throws IOException {
         URL url = new URL(web);
         @SuppressWarnings("resource")

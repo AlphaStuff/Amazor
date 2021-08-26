@@ -1,5 +1,6 @@
 package com.github.alphastuff.amazor;
 
+import com.github.alphastuff.amazor.apis.CatAPI;
 import com.github.alphastuff.amazor.apis.ShibeAPI;
 import com.panjohnny.LogFormat;
 import com.panjohnny.LogProperty;
@@ -13,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * @author PanJohnny
@@ -22,7 +24,7 @@ public class Amazor extends Canvas implements Runnable{
 
     private Thread thread;
     private boolean running;
-    private Image dog;
+    private Image image;
     private JFrame frame;
     public Amazor() {
         frame = new JFrame("Test stuff");
@@ -40,7 +42,7 @@ public class Amazor extends Canvas implements Runnable{
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_A) {
-                    refreshDog();
+                    updateImage();
                 }
             }
 
@@ -55,7 +57,12 @@ public class Amazor extends Canvas implements Runnable{
         start();
     }
     public static void main(String[] args) {
-        new Amazor();
+        if(args.length != 0 && args[0].equalsIgnoreCase("src=boot")) {
+            new Amazor();
+        } else {
+            // do other stuff because the source of start is not boot
+            System.out.println("not booted open settings");
+        }
     }
 
     public synchronized void start() {
@@ -77,7 +84,7 @@ public class Amazor extends Canvas implements Runnable{
      */
     @Override
     public void run() {
-        refreshDog();
+        updateImage();
         while(running) {
             render();
         }
@@ -89,8 +96,12 @@ public class Amazor extends Canvas implements Runnable{
         }
     }
 
-    public void refreshDog() {
-        dog = ShibeAPI.getRandomImage();
+    public void updateImage() {
+        if(new Random().nextBoolean()) {
+            image = ShibeAPI.getRandomImage();
+        } else {
+            image = CatAPI.getRandomImage();
+        }
     }
 
     public void render() {
@@ -101,10 +112,7 @@ public class Amazor extends Canvas implements Runnable{
         BufferStrategy bs = this.getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.BLACK);
-        g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 80));
-        g.drawString("Focus: "+frame.hasFocus(), 80, 80);
-        g.drawImage(dog, 100, 100, null);
+        g.drawImage(image, 100, 100, null);
         g.dispose();
         bs.show();
     }
