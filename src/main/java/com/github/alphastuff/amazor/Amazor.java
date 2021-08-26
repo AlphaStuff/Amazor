@@ -1,5 +1,6 @@
 package com.github.alphastuff.amazor;
 
+import com.github.alphastuff.amazor.apis.ShibeAPI;
 import com.panjohnny.LogFormat;
 import com.panjohnny.LogProperty;
 import com.panjohnny.Logger;
@@ -22,14 +23,15 @@ public class Amazor extends Canvas implements Runnable{
     private Thread thread;
     private boolean running;
     private Image dog;
+    private JFrame frame;
     public Amazor() {
-        JFrame frame = new JFrame("Test stuff");
+        frame = new JFrame("Test stuff");
         frame.setSize(1000, 1000);
         frame.setLocationRelativeTo(null);
         frame.add(this);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setAlwaysOnTop(true);
-        frame.addKeyListener(new KeyListener() {
+        this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -37,7 +39,7 @@ public class Amazor extends Canvas implements Runnable{
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_F5) {
+                if(e.getKeyCode() == KeyEvent.VK_A) {
                     refreshDog();
                 }
             }
@@ -48,7 +50,7 @@ public class Amazor extends Canvas implements Runnable{
             }
         });
         frame.setVisible(true);
-
+        frame.requestFocus();
         thread = new Thread(this);
         start();
     }
@@ -88,12 +90,7 @@ public class Amazor extends Canvas implements Runnable{
     }
 
     public void refreshDog() {
-        try {
-            File f = WebUtil.readImage(WebUtil.getDog());
-            dog = ImageIO.read(f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dog = ShibeAPI.getRandomImage();
     }
 
     public void render() {
@@ -103,6 +100,10 @@ public class Amazor extends Canvas implements Runnable{
         }
         BufferStrategy bs = this.getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
+        g.clearRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.BLACK);
+        g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 80));
+        g.drawString("Focus: "+frame.hasFocus(), 80, 80);
         g.drawImage(dog, 100, 100, null);
         g.dispose();
         bs.show();
