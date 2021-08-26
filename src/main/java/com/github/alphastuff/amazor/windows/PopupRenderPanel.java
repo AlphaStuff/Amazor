@@ -44,7 +44,7 @@ public class PopupRenderPanel extends JPanel {
         if(new Random().nextBoolean()) {
             image = ShibeAPI.getRandomImage();
         } else
-            image = CatAPI.getRandomImage();
+            image = CatAPI.getRandomImage("cute");
 
         assert image != null;
         if(image.getWidth(null)<size) updateImage();
