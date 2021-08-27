@@ -21,13 +21,15 @@ public class PopupWindow {
             minPic.setBounds(315,5,18, 18);
             minPic.setIcon(minImg);
 
-            popupRenderPanel = new PopupRenderPanel(amazor, frame);
+
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
             frame.setSize(size,size);
             int x = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth()-size;
             int y = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight()-size;
             frame.setLocation(x,y);
 
+            popupRenderPanel = new PopupRenderPanel(amazor, frame);
+            
             frame.setUndecorated(true);
             frame.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.6f));
             frame.setLayout(null);
