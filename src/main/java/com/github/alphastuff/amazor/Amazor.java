@@ -19,13 +19,9 @@ public class Amazor {
     private PopupWindow window;
     public Settings settings;
     public Amazor()  {
-        window = new PopupWindow(this);
-        String path = Amazor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        try {
-            path = URLDecoder.decode(path, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-        }
-        File file = new File(path+"/settings.json");
+        File path = new File(System.getProperty("user.dir")+"/Amazor/");
+        path.mkdir();
+        File file = new File(path, "/settings.json");
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -33,7 +29,11 @@ public class Amazor {
             Toolkit.getDefaultToolkit().beep();
             System.exit(500);
         }
+
         settings = new Settings(file);
+
+        window = new PopupWindow(this);
+
         new Thread(() -> {
             while (true) {
                 try {

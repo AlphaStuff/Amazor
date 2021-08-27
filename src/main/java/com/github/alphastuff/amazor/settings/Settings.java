@@ -1,14 +1,11 @@
 package com.github.alphastuff.amazor.settings;
 
-import com.github.alphastuff.amazor.utils.Checks;
+import com.github.alphastuff.amazor.util.Checks;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonWriter;
-import org.ietf.jgss.GSSContext;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.*;
 
@@ -43,7 +40,7 @@ public class Settings {
     public String getString(@Nonnull String key) {
         Checks.checkForNull(key);
         JsonElement element = json.get(key);
-        return element == null ? null : element.getAsString();
+        return element == null ? "cat" : element.getAsString();
     }
 
     public boolean getBoolean(@Nonnull String key) {
@@ -55,7 +52,9 @@ public class Settings {
     public void set(String key, Object value)  {
         json.addProperty(key, value.toString());
         try {
-            new FileWriter(file).write(json.toString());
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write(new Gson().toJson(json));
+            bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

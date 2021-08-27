@@ -1,6 +1,6 @@
 package com.github.alphastuff.amazor.apis;
 
-import com.github.alphastuff.amazor.utils.WebUtil;
+import com.github.alphastuff.amazor.util.WebUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 

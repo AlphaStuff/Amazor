@@ -1,6 +1,4 @@
-package com.github.alphastuff.amazor.utils;
-
-import com.google.gson.JsonParser;
+package com.github.alphastuff.amazor.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -1,6 +1,6 @@
 package com.github.alphastuff.amazor.apis;
 
-import com.github.alphastuff.amazor.utils.WebUtil;
+import com.github.alphastuff.amazor.util.WebUtil;
 
 import java.awt.*;
 import java.io.IOException;
