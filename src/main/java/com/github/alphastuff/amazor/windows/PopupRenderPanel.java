@@ -1,9 +1,7 @@
 package com.github.alphastuff.amazor.windows;
-
 import com.github.alphastuff.amazor.Amazor;
 import com.github.alphastuff.amazor.apis.CatAPI;
 import com.github.alphastuff.amazor.apis.ShibeAPI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -36,7 +34,7 @@ public class PopupRenderPanel extends JPanel {
             }
         });
         setSize(size, size);
-        setLocation(10, 10);
+        setLocation(5, 30);
 
     }
 
