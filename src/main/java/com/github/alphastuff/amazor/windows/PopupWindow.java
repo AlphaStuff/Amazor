@@ -14,12 +14,16 @@ public class PopupWindow {
             // add buttons
             ImageIcon exitImg = new ImageIcon(new ImageIcon("src/main/resources/ePic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             ImageIcon minImg = new ImageIcon(new ImageIcon("src/main/resources/mPic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
+            ImageIcon sImg = new ImageIcon(new ImageIcon("src/main/resources/sPic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             JLabel exitPic = new JLabel();
             JLabel minPic = new JLabel();
+            JLabel sPic = new JLabel();
             exitPic.setBounds(340,5,18, 18);
             exitPic.setIcon(exitImg);
             minPic.setBounds(315,5,18, 18);
             minPic.setIcon(minImg);
+            sPic.setBounds(285,5,18, 18);
+            sPic.setIcon(sImg);
 
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
@@ -37,6 +41,7 @@ public class PopupWindow {
             frame.setFocusable(true);
             frame.getContentPane().add(minPic);
             frame.getContentPane().add(exitPic);
+            frame.getContentPane().add(sPic);
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setAlwaysOnTop(true);
@@ -61,6 +66,13 @@ public class PopupWindow {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     frame.setState(Frame.ICONIFIED); // minimize program
+                }
+            });
+
+            sPic.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    SettingsWindow.settingsWindow();
                 }
             });
         };
