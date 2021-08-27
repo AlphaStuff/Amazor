@@ -6,10 +6,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class SettingsWindow {
-    public static void settingsWindow() {
-
+    private static SettingsWindow window;
+    private SettingsWindow() {
         Runnable runnable = () -> {
-            final JFrame frame = new JFrame();
+            final JFrame frame = new JFrame() {
+                @Override
+                public void dispose() {
+                    super.dispose();
+                    window = null;
+                }
+            };
 
             frame.setSize(400, 400);
             frame.setLocationRelativeTo(null);
@@ -17,7 +23,7 @@ public class SettingsWindow {
             frame.setLayout(null);
             frame.setFocusable(true);
 
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setAlwaysOnTop(true);
 
             frame.setVisible(true);
@@ -29,6 +35,13 @@ public class SettingsWindow {
 
         };
         SwingUtilities.invokeLater(runnable);
+    }
+    public static SettingsWindow getInstance() {
+        if(window==null) {
+            window = new SettingsWindow();
+            return window;
+        }
+        return window;
     }
 }
 

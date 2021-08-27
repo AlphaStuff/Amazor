@@ -72,7 +72,7 @@ public class PopupWindow {
             sPic.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    SettingsWindow.settingsWindow();
+                    SettingsWindow.getInstance();
                 }
             });
         };

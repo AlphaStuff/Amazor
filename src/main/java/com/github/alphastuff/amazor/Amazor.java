@@ -1,22 +1,14 @@
 package com.github.alphastuff.amazor;
 
-import com.github.alphastuff.amazor.apis.CatAPI;
-import com.github.alphastuff.amazor.apis.ShibeAPI;
-import com.github.alphastuff.amazor.windows.PopupRenderPanel;
+import com.github.alphastuff.amazor.settings.Settings;
 import com.github.alphastuff.amazor.windows.PopupWindow;
-import com.panjohnny.LogFormat;
-import com.panjohnny.LogProperty;
-import com.panjohnny.Logger;
+import com.github.alphastuff.amazor.windows.SettingsWindow;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * @author PanJohnny
@@ -25,9 +17,23 @@ import java.util.Random;
 public class Amazor {
 
     private PopupWindow window;
-    public Amazor() {
+    public Settings settings;
+    public Amazor()  {
         window = new PopupWindow(this);
-
+        String path = Amazor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        try {
+            path = URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+        }
+        File file = new File(path+"/settings.json");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toolkit.getDefaultToolkit().beep();
+            System.exit(500);
+        }
+        settings = new Settings(file);
         new Thread(() -> {
             while (true) {
                 try {
@@ -37,13 +43,11 @@ public class Amazor {
         }).start();
     }
     public static void main(String[] args) {
-        //if(args.length != 0 && args[0].equalsIgnoreCase("src=boot")) {
+//        if(args.length != 0 && args[0].equalsIgnoreCase("src=boot")) {
             new Amazor();
-        //} else {
-            // do other stuff because the source of start is not boot
-            //System.out.println("not booted open settings");
-            //Toolkit.getDefaultToolkit().beep();
-        //}
+//        } else {
+//            new SettingsWindow();
+//        }
     }
 
 }
