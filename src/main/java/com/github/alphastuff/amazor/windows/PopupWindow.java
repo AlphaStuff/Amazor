@@ -37,6 +37,10 @@ public class PopupWindow {
             frame.setFocusable(true);
             frame.getContentPane().add(minPic);
             frame.getContentPane().add(exitPic);
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setAlwaysOnTop(true);
+
             frame.setVisible(true);
 
             FrameDragListener frameDragListener = new FrameDragListener(frame);
