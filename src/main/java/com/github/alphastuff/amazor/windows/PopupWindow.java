@@ -46,7 +46,7 @@ public class PopupWindow {
             exitPic.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    frame.dispose(); // THIS DOESN'T SHUTDOWN WHOLE PROGRAM NEEDS TO BE FIXED ------------------------------------
+                    System.exit(0); // THIS DOESN'T SHUTDOWN WHOLE PROGRAM NEEDS TO BE FIXED ------------------------------------
                 }
             });
 

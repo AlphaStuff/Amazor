@@ -34,7 +34,7 @@ public class PopupRenderPanel extends JPanel {
             }
         });
         setSize(size, size);
-        setLocation(5, 30);
+        setLocation(13, 30);
 
     }
 
