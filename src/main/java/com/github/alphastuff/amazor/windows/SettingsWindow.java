@@ -40,20 +40,14 @@ public class SettingsWindow implements Runnable{
             frame.add(imageType);
 
             HintTextField imageAdvancedUrl = new HintTextField("Enter url");
+            imageAdvancedUrl.setText(amazor.settings.getString(ContentManager.IMAGE_ADVANCED_URL));
             imageAdvancedUrl.setOnTextChange(() -> {
                 amazor.settings.set(ContentManager.IMAGE_ADVANCED_URL, imageAdvancedUrl.getText());
             });
-            imageAdvancedUrl.setVisible(false);
 
             JCheckBox imageAdvanced = new JCheckBox("Enable image advanced", amazor.settings.getBoolean(ContentManager.IMAGE_ADVANCED));
             imageAdvanced.addActionListener(e -> {
-                System.out.println("image advanced change");
                 amazor.settings.set(ContentManager.IMAGE_ADVANCED, imageAdvanced.isSelected());
-                imageAdvancedUrl.setVisible(imageAdvanced.isSelected());
-                imageAdvancedUrl.validate();
-                imageAdvancedUrl.repaint();
-
-                frame.repaint();
             });
 
             frame.add(imageAdvanced);
