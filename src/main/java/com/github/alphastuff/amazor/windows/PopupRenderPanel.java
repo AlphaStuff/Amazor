@@ -18,7 +18,7 @@ public class PopupRenderPanel extends JPanel {
     private Amazor amazor;
     public Image image;
     private ContentManager manager;
-    private int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.6);
+    private static final int SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.6);
     public PopupRenderPanel(Amazor amazor, JFrame frame) {
         this.amazor = amazor;
 
@@ -40,7 +40,7 @@ public class PopupRenderPanel extends JPanel {
 
             }
         });
-        setSize(size, size);
+        setSize(SIZE, SIZE);
 
         setLocation(frame.getWidth()/28, frame.getHeight()/12);
 
@@ -80,14 +80,14 @@ public class PopupRenderPanel extends JPanel {
                 }
             }
             assert image != null;
-            if (image.getWidth(null) < size) updateImage();
-            float maxW = (float) size / image.getWidth(null);
-            float maxH = (float) size / image.getHeight(null);
+            if (image.getWidth(null) < SIZE) updateImage();
+            float maxW = (float) SIZE / image.getWidth(null);
+            float maxH = (float) SIZE / image.getHeight(null);
             double scaling = Math.min(maxW, maxH);
-            int resizedW = (int) (image.getHeight(null) * scaling);
-            int resizedH = (int) (image.getHeight(null) * scaling);
-            image = image.getScaledInstance(resizedW, resizedH, Image.SCALE_SMOOTH);
-            setSize(resizedW, resizedH);
+            int reSIZEdW = (int) (image.getHeight(null) * scaling);
+            int reSIZEdH = (int) (image.getHeight(null) * scaling);
+            image = image.getScaledInstance(reSIZEdW, reSIZEdH, Image.SCALE_DEFAULT);
+            setSize(reSIZEdW, reSIZEdH);
         }
 
     }

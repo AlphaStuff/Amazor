@@ -16,6 +16,7 @@ public class SettingsWindow{
     private Amazor amazor;
     private SettingsWindow(Amazor amazor) {
         this.amazor = amazor;
+        ContentManager manager = new ContentManager(amazor.settings);
         Runnable runnable = () -> {
             final JFrame frame = new JFrame() {
                 @Override
@@ -28,27 +29,32 @@ public class SettingsWindow{
             frame.setSize(400, 400);
             frame.setLocationRelativeTo(null);
 
-            JCheckBox imageEnabled = new JCheckBox("Enable image showing", amazor.settings.getBoolean(ContentManager.IMAGE));
+            JCheckBox imageEnabled = new JCheckBox("Enable image showing", manager.isImageEnabled());
             imageEnabled.addActionListener(e -> {
                 amazor.settings.set(ContentManager.IMAGE, imageEnabled.isSelected());
             });
             frame.add(imageEnabled);
 
             JList<String> imageType = new JList<>(new String[]{"cat", "shibe", "random"});
-            imageType.setSelectedIndex(Checks.translateType(amazor.settings.getString(ContentManager.IMAGE_TYPE)));
-            imageType.addListSelectionListener(e -> amazor.settings.set(ContentManager.IMAGE_TYPE, imageType.getSelectedValue()));
+            imageType.setSelectedIndex(Checks.translateType(manager.getImageType()));
+            imageType.addListSelectionListener(e -> {
+                amazor.settings.set(ContentManager.IMAGE_TYPE, imageType.getSelectedValue());
+                amazor.reloadContent();
+            });
 
             frame.add(imageType);
 
             HintTextField imageAdvancedUrl = new HintTextField("Enter url");
-            imageAdvancedUrl.setText(amazor.settings.getString(ContentManager.IMAGE_ADVANCED_URL));
+            imageAdvancedUrl.setText(manager.getImageAdvancedUrl());
             imageAdvancedUrl.setOnTextChange(() -> {
                 amazor.settings.set(ContentManager.IMAGE_ADVANCED_URL, imageAdvancedUrl.getText());
+                amazor.reloadContent();
             });
 
-            JCheckBox imageAdvanced = new JCheckBox("Enable image advanced", amazor.settings.getBoolean(ContentManager.IMAGE_ADVANCED));
+            JCheckBox imageAdvanced = new JCheckBox("Enable image advanced", manager.isAdvancedImageEnabled());
             imageAdvanced.addActionListener(e -> {
                 amazor.settings.set(ContentManager.IMAGE_ADVANCED, imageAdvanced.isSelected());
+                amazor.reloadContent();
             });
 
             frame.add(imageAdvanced);

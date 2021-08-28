@@ -42,6 +42,10 @@ public class Amazor {
             }
         }).start();
     }
+
+    public void reloadContent() {
+        window.popupRenderPanel.updateImage();
+    }
     public static void main(String[] args) {
 //        if(args.length != 0 && args[0].equalsIgnoreCase("src=boot")) {
             new Amazor();
