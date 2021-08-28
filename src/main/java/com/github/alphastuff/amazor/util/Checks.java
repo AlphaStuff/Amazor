@@ -15,8 +15,12 @@ public class Checks {
                 return 0;
             case "shibe":
                 return 1;
-            default:
+            case "inspirobot":
                 return 2;
+            case "dog":
+                return 3;
+            default:
+                return 4;
         }
     }
 }

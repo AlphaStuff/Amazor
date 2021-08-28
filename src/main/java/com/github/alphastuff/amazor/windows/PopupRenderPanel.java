@@ -1,7 +1,6 @@
 package com.github.alphastuff.amazor.windows;
 import com.github.alphastuff.amazor.Amazor;
-import com.github.alphastuff.amazor.apis.CatAPI;
-import com.github.alphastuff.amazor.apis.ShibeAPI;
+import com.github.alphastuff.amazor.apis.*;
 import com.github.alphastuff.amazor.util.Checks;
 import com.github.alphastuff.amazor.util.ContentManager;
 import com.github.alphastuff.amazor.util.WebUtil;
@@ -18,6 +17,7 @@ public class PopupRenderPanel extends JPanel {
     private Amazor amazor;
     public Image image;
     private ContentManager manager;
+    private QuoteAPI.Quote quote;
     private static final int SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.6);
     public PopupRenderPanel(Amazor amazor, JFrame frame) {
         this.amazor = amazor;
@@ -51,6 +51,10 @@ public class PopupRenderPanel extends JPanel {
     }
 
     public void updateImage() {
+        if(manager.isQuoteEnabled()) {
+            quote = QuoteAPI.getRandomQuote();
+            System.out.println(quote);
+        }
         if(manager.isImageEnabled()) {
             boolean custom = false;
             if(manager.isAdvancedImageEnabled() && manager.getImageAdvancedUrl()!=null) {
@@ -73,10 +77,17 @@ public class PopupRenderPanel extends JPanel {
                         image = ShibeAPI.getRandomImage();
                         break;
                     case 2:
+                        image = InspiroBotAPI.getRandomImage();
+                        break;
+                    case 3:
+                        image = DogAPI.getRandomImage();
+                        break;
+                    case 4:
                         if(new Random().nextBoolean())
                             image = CatAPI.getRandomImage();
                         else
                             image = ShibeAPI.getRandomImage();
+                        break;
                 }
             }
             assert image != null;
@@ -97,6 +108,11 @@ public class PopupRenderPanel extends JPanel {
         g.clearRect(0, 0, getWidth(), getHeight());
         if(manager.isImageEnabled()) {
             g.drawImage(image, 0, 0, null);
+        }
+        if(manager.isQuoteEnabled()) {
+            g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+            g.setColor(Color.white);
+            g.drawString(quote.toString(), 10, 10);
         }
         g.dispose();
     }

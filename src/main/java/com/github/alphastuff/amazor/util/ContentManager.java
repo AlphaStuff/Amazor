@@ -7,6 +7,7 @@ public class ContentManager {
     public static final String IMAGE_TYPE = "image.type";
     public static final String IMAGE_ADVANCED = "image.advanced";
     public static final String IMAGE_ADVANCED_URL = "image.advanced.url";
+    public static final String QUOTE = "quote";
     private Settings settings;
     public ContentManager(Settings settings) {
         this.settings = settings;
@@ -32,5 +33,9 @@ public class ContentManager {
 
     public String getImageAdvancedUrl() {
         return settings.getString(IMAGE_ADVANCED_URL);
+    }
+
+    public boolean isQuoteEnabled() {
+        return settings.getBoolean(QUOTE);
     }
 }

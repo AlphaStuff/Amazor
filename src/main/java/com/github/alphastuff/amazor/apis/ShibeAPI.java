@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShibeAPI {
-    private static final String ENDPOINT = "https://shibe.online/api/shibes";
+    public static final String ENDPOINT = "https://shibe.online/api/shibes";
     // lock class from being instanced
     private ShibeAPI() {}
 

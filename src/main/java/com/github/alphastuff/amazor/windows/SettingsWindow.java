@@ -30,7 +30,7 @@ public class SettingsWindow{
             imageEnabled.addActionListener(e -> amazor.settings.set(ContentManager.IMAGE, imageEnabled.isSelected()));
             frame.add(imageEnabled);
 
-            JList<String> imageType = new JList<>(new String[]{"cat", "shibe", "random"});
+            JList<String> imageType = new JList<>(new String[]{"cat", "shibe", "inspirobot", "dog", "random"});
             imageType.setSelectedIndex(Checks.translateType(manager.getImageType()));
             imageType.addListSelectionListener(e -> {
                 amazor.settings.set(ContentManager.IMAGE_TYPE, imageType.getSelectedValue());
@@ -52,6 +52,12 @@ public class SettingsWindow{
                 amazor.reloadContent();
             });
 
+            JCheckBox quoteEnabled = new JCheckBox("Enable quote", manager.isQuoteEnabled());
+            quoteEnabled.addActionListener(e -> {
+                amazor.settings.set(ContentManager.QUOTE, quoteEnabled.isSelected());
+                amazor.reloadContent();
+            });
+
             frame.add(imageAdvanced);
             frame.add(imageAdvancedUrl);
 
@@ -69,24 +75,29 @@ public class SettingsWindow{
             frame.setUndecorated(true);
             frame.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.6f));
             imageAdvanced.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
+            quoteEnabled.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
             imageAdvancedUrl.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
             imageEnabled.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
             imageType.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
             imageType.setForeground(Color.WHITE);
             imageAdvanced.setForeground(Color.WHITE);
+            quoteEnabled.setForeground(Color.WHITE);
             imageAdvancedUrl.setForeground(Color.WHITE);
             imageEnabled.setForeground(Color.WHITE);
 
             imageEnabled.setBounds(10,20,180,15);
             imageAdvanced.setBounds(10,50,180,15);
-            imageAdvancedUrl.setBounds(10,80,180,15);
-            imageType.setBounds(10,110,180,100);
+            quoteEnabled.setBounds(10,80,180,15);
+            imageAdvancedUrl.setBounds(10,110,180,15);
+            imageType.setBounds(10,140,180,100);
 
             imageEnabled.setOpaque(false);
             imageAdvanced.setOpaque(false);
+            quoteEnabled.setOpaque(false);
             imageAdvancedUrl.setOpaque(false);
             imageType.setOpaque(false);
 
+            frame.add(quoteEnabled);
 
             frame.getContentPane().add(exitPic);
             frame.setVisible(true);
