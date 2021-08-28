@@ -50,6 +50,7 @@ public class Settings {
     }
 
     public void set(String key, Object value)  {
+        value = value == null? "null" : value;
         json.addProperty(key, value.toString());
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));

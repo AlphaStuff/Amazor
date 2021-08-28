@@ -1,16 +1,18 @@
 package com.github.alphastuff.amazor.windows;
 import com.github.alphastuff.amazor.Amazor;
+import com.github.alphastuff.amazor.util.Checks;
 import com.github.alphastuff.amazor.util.ContentManager;
 
 import javax.print.DocFlavor;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SettingsWindow implements Runnable{
+public class SettingsWindow{
     private static SettingsWindow window;
 
-    private JList<String> imageType;
     private Amazor amazor;
     private SettingsWindow(Amazor amazor) {
         this.amazor = amazor;
@@ -20,8 +22,6 @@ public class SettingsWindow implements Runnable{
                 public void dispose() {
                     super.dispose();
                     window = null;
-
-                    run();
                 }
             };
 
@@ -34,8 +34,9 @@ public class SettingsWindow implements Runnable{
             });
             frame.add(imageEnabled);
 
-            imageType = new JList<>(new String[]{"cat", "shibe", "random"}) {};
-            imageType.setSelectedIndex(0);
+            JList<String> imageType = new JList<>(new String[]{"cat", "shibe", "random"});
+            imageType.setSelectedIndex(Checks.translateType(amazor.settings.getString(ContentManager.IMAGE_TYPE)));
+            imageType.addListSelectionListener(e -> amazor.settings.set(ContentManager.IMAGE_TYPE, imageType.getSelectedValue()));
 
             frame.add(imageType);
 
@@ -89,10 +90,6 @@ public class SettingsWindow implements Runnable{
      *
      * @see Thread#run()
      */
-    @Override
-    public void run() {
-        amazor.settings.set(ContentManager.IMAGE_TYPE, imageType.getSelectedValue());
-    }
 
     class HintTextField extends JTextField implements FocusListener {
 
@@ -132,7 +129,8 @@ public class SettingsWindow implements Runnable{
                 a = "";
             }
             if(!a.isBlank()&&!showingHint&&!a.isEmpty()&&a.startsWith("https") | a.startsWith("http")) {
-               change.run();
+                if(change==null) return;
+                change.run();
             }
             super.repaint();
         }
@@ -144,6 +142,12 @@ public class SettingsWindow implements Runnable{
         @Override
         public String getText() {
             return showingHint ? "" : super.getText();
+        }
+
+        @Override
+        public void setText(String t) {
+            if(showingHint) showingHint = false;
+            super.setText(t);
         }
     }
 }
