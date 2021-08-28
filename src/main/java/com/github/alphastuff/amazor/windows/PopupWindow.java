@@ -12,17 +12,17 @@ public class PopupWindow {
             final JFrame frame = new JFrame();
 
             // add buttons
-            ImageIcon exitImg = new ImageIcon(new ImageIcon("src/main/resources/ePic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
-            ImageIcon minImg = new ImageIcon(new ImageIcon("src/main/resources/mPic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
+            ImageIcon exitImg = new ImageIcon(new ImageIcon("src/main/resources/ePic.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+            ImageIcon minImg = new ImageIcon(new ImageIcon("src/main/resources/mPic.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
             ImageIcon sImg = new ImageIcon(new ImageIcon("src/main/resources/sPic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             JLabel exitPic = new JLabel();
             JLabel minPic = new JLabel();
             JLabel sPic = new JLabel();
-            exitPic.setBounds(340,5,18, 18);
+            exitPic.setBounds(340,3,25, 25);
             exitPic.setIcon(exitImg);
-            minPic.setBounds(315,5,18, 18);
+            minPic.setBounds(315,3,25, 25);
             minPic.setIcon(minImg);
-            sPic.setBounds(285,5,18, 18);
+            sPic.setBounds(293,7,18, 18);
             sPic.setIcon(sImg);
 
 
