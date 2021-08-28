@@ -16,6 +16,7 @@ import java.util.Random;
 public class PopupRenderPanel extends JPanel {
     private Amazor amazor;
     public Image image;
+    public Image lastImage;
     private ContentManager manager;
     private QuoteAPI.Quote quote;
     private static final int SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.6);
@@ -30,9 +31,11 @@ public class PopupRenderPanel extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_A) {
+                if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    if(lastImage!=null)
+                        image = lastImage;
+                } else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
                     updateImage();
-                }
             }
 
             @Override
@@ -56,6 +59,7 @@ public class PopupRenderPanel extends JPanel {
             System.out.println(quote);
         }
         if(manager.isImageEnabled()) {
+            lastImage = image;
             boolean custom = false;
             if(manager.isAdvancedImageEnabled() && manager.getImageAdvancedUrl()!=null) {
                 try {
