@@ -40,15 +40,20 @@ public class SettingsWindow implements Runnable{
             frame.add(imageType);
 
             HintTextField imageAdvancedUrl = new HintTextField("Enter url");
-            imageAdvancedUrl.setOnFocusLost(() -> {
+            imageAdvancedUrl.setOnTextChange(() -> {
                 amazor.settings.set(ContentManager.IMAGE_ADVANCED_URL, imageAdvancedUrl.getText());
             });
             imageAdvancedUrl.setVisible(false);
 
             JCheckBox imageAdvanced = new JCheckBox("Enable image advanced", amazor.settings.getBoolean(ContentManager.IMAGE_ADVANCED));
-            imageEnabled.addActionListener(e -> {
+            imageAdvanced.addActionListener(e -> {
+                System.out.println("image advanced change");
                 amazor.settings.set(ContentManager.IMAGE_ADVANCED, imageAdvanced.isSelected());
                 imageAdvancedUrl.setVisible(imageAdvanced.isSelected());
+                imageAdvancedUrl.validate();
+                imageAdvancedUrl.repaint();
+
+                frame.repaint();
             });
 
             frame.add(imageAdvanced);
@@ -99,7 +104,7 @@ public class SettingsWindow implements Runnable{
 
         private final String hint;
         private boolean showingHint;
-        private Runnable focus;
+        private Runnable change;
 
         public HintTextField(final String hint) {
             super(hint);
@@ -113,8 +118,7 @@ public class SettingsWindow implements Runnable{
             if (this.getText().isEmpty()) {
                 super.setText("");
                 showingHint = false;
-            } else
-                focus.run();
+            }
         }
 
         @Override
@@ -125,8 +129,22 @@ public class SettingsWindow implements Runnable{
             }
         }
 
-        public void setOnFocusLost(Runnable runnable) {
-            focus = runnable;
+        @Override
+        public void repaint() {
+            String a;
+            try {
+                a = getText();
+            }catch (NullPointerException e) {
+                a = "";
+            }
+            if(!a.isBlank()&&!showingHint&&!a.isEmpty()&&a.startsWith("https") | a.startsWith("http")) {
+               change.run();
+            }
+            super.repaint();
+        }
+
+        public void setOnTextChange(Runnable runnable) {
+            change = runnable;
         }
 
         @Override
