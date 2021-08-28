@@ -68,27 +68,9 @@ public class PopupRenderPanel extends JPanel {
 
             if(!custom) {
                 if(manager.getImageType()==null)
-                    image = CatAPI.getRandomImage();
-                switch (Checks.translateType(manager.getImageType())){
-                    case 0:
-                        image = CatAPI.getRandomImage();
-                        break;
-                    case 1:
-                        image = ShibeAPI.getRandomImage();
-                        break;
-                    case 2:
-                        image = InspiroBotAPI.getRandomImage();
-                        break;
-                    case 3:
-                        image = DogAPI.getRandomImage();
-                        break;
-                    case 4:
-                        if(new Random().nextBoolean())
-                            image = CatAPI.getRandomImage();
-                        else
-                            image = ShibeAPI.getRandomImage();
-                        break;
-                }
+                    image = CatAPI.getRandomImage("Internal error", Color.RED);
+                getImageFromID(Checks.translateType(manager.getImageType()));
+
             }
             assert image != null;
             if (image.getWidth(null) < SIZE) updateImage();
@@ -101,6 +83,25 @@ public class PopupRenderPanel extends JPanel {
             setSize(reSIZEdW, reSIZEdH);
         }
 
+    }
+
+    public void getImageFromID(int id) {
+        switch (id) {
+            case 0:
+                image = CatAPI.getRandomImage();
+                break;
+            case 1:
+                image = ShibeAPI.getRandomImage();
+                break;
+            case 2:
+                image = InspiroBotAPI.getRandomImage();
+                break;
+            case 3:
+                image = DogAPI.getRandomImage();
+                break;
+            case 4:
+                getImageFromID(new Random().nextInt(4));
+        }
     }
 
     @Override
