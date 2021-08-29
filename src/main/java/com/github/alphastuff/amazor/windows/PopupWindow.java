@@ -100,6 +100,7 @@ public class PopupWindow {
 
         public void mouseDragged(MouseEvent e) {
             Point currCoords = e.getLocationOnScreen();
+            assert mouseDownCompCoords != null;
             frame.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
         }
     }
