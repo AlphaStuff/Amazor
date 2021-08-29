@@ -86,7 +86,7 @@ public class SettingsWindow{
             frame.getContentPane().add(edgePic);
             edgePic.setBounds(0,0,200, 250);
             edgePic.setIcon(edgeImg);
-            exitPic.setBounds(170,7,25, 25);
+            exitPic.setBounds(167,9,25, 25);
             exitPic.setIcon(exitImg);
             frame.setUndecorated(true);
             frame.setBackground(FRAME_BACKGROUND);
@@ -102,10 +102,9 @@ public class SettingsWindow{
             imageAdvancedUrl.setForeground(FOREGROUND_COLOR);
             imageEnabled.setForeground(FOREGROUND_COLOR);
             imageSlideShow.setForeground(FOREGROUND_COLOR);
-
             imageEnabled.setBounds(10,20,153,15);
-            imageAdvanced.setBounds(10,50,160,15);
-            imageSlideShow.setBounds(10,80,160,15);
+            imageSlideShow.setBounds(10,50,160,15);
+            imageAdvanced.setBounds(10,80,160,15);
             imageAdvancedUrl.setBounds(15,110,150,15);
             imageType.setBounds(15,140,110,70);
 

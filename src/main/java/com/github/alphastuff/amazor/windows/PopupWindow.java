@@ -24,11 +24,13 @@ public class PopupWindow {
             ImageIcon minImg= null;
             ImageIcon sImg= null;
             ImageIcon saveImg= null;
+            ImageIcon maxImg= null;
             try {
                 exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
                 minImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/mPic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
                 saveImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/savePic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
                 sImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/sPic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
+                maxImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/maxPic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             } catch (IOException e) {
                 WebUtil.webError(e);
             }
@@ -36,6 +38,7 @@ public class PopupWindow {
             JLabel minPic = new JLabel();
             JLabel sPic = new JLabel();
             JLabel savePic = new JLabel();
+            JLabel maxPic = new JLabel();
             exitPic.setBounds(340,3,25, 25);
             exitPic.setIcon(exitImg);
             minPic.setBounds(315,3,25, 25);
@@ -44,6 +47,8 @@ public class PopupWindow {
             sPic.setIcon(sImg);
             savePic.setBounds(267,7,18, 18);
             savePic.setIcon(saveImg);
+            savePic.setBounds(241,7,18, 18);
+            savePic.setIcon(maxImg);
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
             frame.setSize(size,size + 20);
