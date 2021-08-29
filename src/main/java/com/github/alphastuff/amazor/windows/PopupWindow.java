@@ -47,8 +47,8 @@ public class PopupWindow {
             sPic.setIcon(sImg);
             savePic.setBounds(267,7,18, 18);
             savePic.setIcon(saveImg);
-            savePic.setBounds(241,7,18, 18);
-            savePic.setIcon(maxImg);
+            maxPic.setBounds(241,7,18, 18);
+            maxPic.setIcon(maxImg);
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
             frame.setSize(size,size + 20);
