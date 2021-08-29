@@ -9,7 +9,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class SettingsWindow{
-    private static int windows = 0;
+    private static boolean open = false;
 
     public static final String[] TYPES = new String[]{"cat", "shibe", "inspirobot", "dog", "random"};
     public static final Color ELEMENT_BACKGROUND = new Color(0.1f, 0.1f, 0.1f, 0.3f);
@@ -17,15 +17,16 @@ public class SettingsWindow{
     public static final Color FOREGROUND_COLOR = Color.WHITE;
 
     public SettingsWindow(Amazor amazor) {
-        if(windows!=0)
+        if(open)
             return;
+        open = true;
         ContentManager manager = new ContentManager(amazor.settings);
         Runnable runnable = () -> {
             final JFrame frame = new JFrame() {
                 @Override
                 public void dispose() {
                     super.dispose();
-                    windows--;
+                    open=false;
                 }
             };
 
