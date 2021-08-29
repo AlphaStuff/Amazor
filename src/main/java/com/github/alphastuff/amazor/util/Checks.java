@@ -10,17 +10,12 @@ public class Checks {
     }
 
     public static int translateType(String type) {
-        switch (type.toLowerCase().trim()) {
-            case "cat":
-                return 0;
-            case "shibe":
-                return 1;
-            case "inspirobot":
-                return 2;
-            case "dog":
-                return 3;
-            default:
-                return 4;
-        }
+        return switch (type.toLowerCase().trim()) {
+            case "cat" -> 0;
+            case "shibe" -> 1;
+            case "inspirobot" -> 2;
+            case "dog" -> 3;
+            default -> 4;
+        };
     }
 }

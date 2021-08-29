@@ -11,7 +11,7 @@ import java.io.*;
 
 public class Settings {
 
-    private File file;
+    private final File file;
     private JsonObject json;
     public Settings(File file) {
         this.file = file;
@@ -29,12 +29,6 @@ public class Settings {
         } catch (FileNotFoundException e) {
             System.err.println("Settings file not found");
         }
-    }
-
-    public Number getNumber(@Nonnull String key) {
-        Checks.checkForNull(key);
-        JsonElement element = json.get(key);
-        return element == null ? -1 : element.getAsNumber();
     }
 
     public String getString(@Nonnull String key) {

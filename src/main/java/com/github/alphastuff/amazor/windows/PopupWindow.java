@@ -2,14 +2,11 @@ package com.github.alphastuff.amazor.windows;
 import com.github.alphastuff.amazor.Amazor;
 import com.github.alphastuff.amazor.util.WebUtil;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 
 public class PopupWindow {
     public PopupRenderPanel popupRenderPanel;
@@ -17,23 +14,15 @@ public class PopupWindow {
         Runnable runnable = () -> {
             final JFrame frame = new JFrame();
 
-            ImageIcon exitImg= new ImageIcon();
-            ImageIcon minImg= new ImageIcon();
-            ImageIcon sImg= new ImageIcon();
+            ImageIcon exitImg= null;
+            ImageIcon minImg= null;
+            ImageIcon sImg= null;
             try {
                 exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
                 minImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/mPic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
                 sImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/sPic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             } catch (IOException e) {
-                e.printStackTrace();
+                WebUtil.webError(e);
             }
             JLabel exitPic = new JLabel();
             JLabel minPic = new JLabel();
@@ -82,9 +71,10 @@ public class PopupWindow {
             });
 
             sPic.addMouseListener(new MouseAdapter() {
+                @SuppressWarnings("InstantiationOfUtilityClass")
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    SettingsWindow.getInstance(amazor);
+                    new SettingsWindow(amazor);
                 }
             });
         };

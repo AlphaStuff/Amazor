@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class ShibeAPI {
     public static final String ENDPOINT = "https://shibe.online/api/shibes";
-    // lock class from being instanced
     private ShibeAPI() {}
 
     public static Image getRandomImage() {

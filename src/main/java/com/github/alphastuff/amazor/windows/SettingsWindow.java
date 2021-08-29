@@ -9,18 +9,23 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class SettingsWindow{
-    private static SettingsWindow window;
+    private static int windows = 0;
 
-    private Amazor amazor;
-    private SettingsWindow(Amazor amazor) {
-        this.amazor = amazor;
+    public static final String[] TYPES = new String[]{"cat", "shibe", "inspirobot", "dog", "random"};
+    public static final Color ELEMENT_BACKGROUND = new Color(0.1f, 0.1f, 0.1f, 0.3f);
+    public static final Color FRAME_BACKGROUND = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+    public static final Color FOREGROUND_COLOR = Color.WHITE;
+
+    public SettingsWindow(Amazor amazor) {
+        if(windows!=0)
+            return;
         ContentManager manager = new ContentManager(amazor.settings);
         Runnable runnable = () -> {
             final JFrame frame = new JFrame() {
                 @Override
                 public void dispose() {
                     super.dispose();
-                    window = null;
+                    windows--;
                 }
             };
 
@@ -31,7 +36,7 @@ public class SettingsWindow{
             imageEnabled.addActionListener(e -> amazor.settings.set(ContentManager.IMAGE, imageEnabled.isSelected()));
             frame.add(imageEnabled);
 
-            JList<String> imageType = new JList<>(new String[]{"cat", "shibe", "inspirobot", "dog", "random"});
+            JList<String> imageType = new JList<>(TYPES);
             imageType.setSelectedIndex(Checks.translateType(manager.getImageType()));
             imageType.addListSelectionListener(e -> {
                 amazor.settings.set(ContentManager.IMAGE_TYPE, imageType.getSelectedValue());
@@ -53,11 +58,6 @@ public class SettingsWindow{
                 amazor.reloadContent();
             });
 
-            JCheckBox quoteEnabled = new JCheckBox("Enable quote", manager.isQuoteEnabled());
-            quoteEnabled.addActionListener(e -> {
-                amazor.settings.set(ContentManager.QUOTE, quoteEnabled.isSelected());
-                amazor.reloadContent();
-            });
             frame.add(imageAdvanced);
             frame.add(imageAdvancedUrl);
 
@@ -67,19 +67,15 @@ public class SettingsWindow{
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setAlwaysOnTop(true);
 
-            ImageIcon edgeImg = new ImageIcon();
-            ImageIcon exitImg = new ImageIcon();
+            ImageIcon edgeImg = null;
+            ImageIcon exitImg = null;
             try {
                 edgeImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/edgePic.png").getScaledInstance(200, 250, Image.SCALE_DEFAULT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
                 exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
             } catch (IOException e) {
-                e.printStackTrace();
+                WebUtil.webError(e);
             }
+
             JLabel edgePic = new JLabel();
             JLabel exitPic = new JLabel();
             frame.getContentPane().add(edgePic);
@@ -88,30 +84,27 @@ public class SettingsWindow{
             exitPic.setBounds(170,7,25, 25);
             exitPic.setIcon(exitImg);
             frame.setUndecorated(true);
-            frame.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.5f));
-            imageAdvanced.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
-            quoteEnabled.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
-            imageAdvancedUrl.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
-            imageEnabled.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
-            imageType.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
-            imageType.setForeground(Color.WHITE);
-            imageAdvanced.setForeground(Color.WHITE);
-            quoteEnabled.setForeground(Color.WHITE);
-            imageAdvancedUrl.setForeground(Color.WHITE);
-            imageEnabled.setForeground(Color.WHITE);
+            frame.setBackground(FRAME_BACKGROUND);
+
+            imageAdvanced.setBackground(ELEMENT_BACKGROUND);
+            imageAdvancedUrl.setBackground(ELEMENT_BACKGROUND);
+            imageEnabled.setBackground(ELEMENT_BACKGROUND);
+            imageType.setBackground(ELEMENT_BACKGROUND);
+
+            imageType.setForeground(FOREGROUND_COLOR);
+            imageAdvanced.setForeground(FOREGROUND_COLOR);
+            imageAdvancedUrl.setForeground(FOREGROUND_COLOR);
+            imageEnabled.setForeground(FOREGROUND_COLOR);
+
             imageEnabled.setBounds(10,20,153,15);
             imageAdvanced.setBounds(10,50,160,15);
-            quoteEnabled.setBounds(10,80,100,15);
-            imageAdvancedUrl.setBounds(15,110,150,15);
-            imageType.setBounds(15,140,150,70);
+            imageAdvancedUrl.setBounds(15,80,150,15);
+            imageType.setBounds(15,140,110,70);
 
             imageEnabled.setOpaque(false);
             imageAdvanced.setOpaque(false);
-            quoteEnabled.setOpaque(false);
             imageAdvancedUrl.setOpaque(false);
             imageType.setOpaque(false);
-
-            frame.add(quoteEnabled);
 
             frame.getContentPane().add(exitPic);
             frame.setVisible(true);
@@ -133,27 +126,7 @@ public class SettingsWindow{
         SwingUtilities.invokeLater(runnable);
     }
 
-    public static SettingsWindow getInstance(Amazor amazor) {
-        if(window==null) {
-            window = new SettingsWindow(amazor);
-            return window;
-        }
-        return window;
-    }
-
-    /**
-     * When an object implementing interface {@code Runnable} is used
-     * to create a thread, starting the thread causes the object's
-     * {@code run} method to be called in that separately executing
-     * thread.
-     * <p>
-     * The general contract of the method {@code run} is that it may
-     * take any action whatsoever.
-     *
-     * @see Thread#run()
-     */
-
-    class HintTextField extends JTextField implements FocusListener {
+    static class HintTextField extends JTextField implements FocusListener {
 
         private final String hint;
         private boolean showingHint;
