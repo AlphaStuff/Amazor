@@ -2,10 +2,16 @@ package com.github.alphastuff.amazor.windows;
 import com.github.alphastuff.amazor.Amazor;
 import com.github.alphastuff.amazor.util.WebUtil;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageFilter;
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class PopupWindow {
@@ -93,7 +99,27 @@ public class PopupWindow {
             savePic.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    System.out.println("Hey I Work!");
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.setFileFilter(new FileFilter() {
+                        @Override
+                        public boolean accept(File f) {
+                            return f.getName().endsWith(".png");
+                        }
+
+                        @Override
+                        public String getDescription() {
+                            return "Portable Graphics Format file (.png)";
+                        }
+                    });
+                    if(chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION) {
+                        File file = chooser.getSelectedFile();
+                        try {
+                            file.createNewFile();
+                            ImageIO.write(toBufferedImage(popupRenderPanel.image), "PNG", file);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    }
                 }
             });
 
@@ -123,5 +149,30 @@ public class PopupWindow {
             assert mouseDownCompCoords != null;
             frame.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
         }
+    }
+
+    /**
+     * Converts a given Image into a BufferedImage
+     *
+     * @param img The Image to be converted
+     * @return The converted BufferedImage
+     */
+    public BufferedImage toBufferedImage(Image img)
+    {
+        if (img instanceof BufferedImage)
+        {
+            return (BufferedImage) img;
+        }
+
+        // Create a buffered image with transparency
+        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the image on to the buffered image
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        // Return the buffered image
+        return bimage;
     }
 }
