@@ -40,9 +40,9 @@ public class PopupWindow {
             savePic.setIcon(saveImg);
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
-            frame.setSize(size,size);
+            frame.setSize(size,size + 20);
             int x = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth()-size;
-            int y = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight()-size;
+            int y = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight()-size - 20;
             frame.setLocation(x,y);
             popupRenderPanel = new PopupRenderPanel(amazor, frame);
             frame.setUndecorated(true);
@@ -87,7 +87,7 @@ public class PopupWindow {
             savePic.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-
+                    System.out.println("Hey I Work!");
                 }
             });
 
