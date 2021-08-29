@@ -21,7 +21,7 @@ public class PopupWindow {
             try {
                 exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
                 minImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/mPic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-                saveImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/savePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+                saveImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/savePic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
                 sImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/sPic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             } catch (IOException e) {
                 WebUtil.webError(e);
@@ -36,7 +36,7 @@ public class PopupWindow {
             minPic.setIcon(minImg);
             sPic.setBounds(293,7,18, 18);
             sPic.setIcon(sImg);
-            savePic.setBounds(15,3,18, 18);
+            savePic.setBounds(267,7,18, 18);
             savePic.setIcon(saveImg);
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
