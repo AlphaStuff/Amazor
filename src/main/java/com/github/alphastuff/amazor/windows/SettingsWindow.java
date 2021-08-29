@@ -37,7 +37,7 @@ public class SettingsWindow{
             frame.add(imageEnabled);
 
             JCheckBox imageSlideShow = new JCheckBox("Enable slide show", manager.isImageEnabled());
-            imageEnabled.addActionListener(e -> amazor.settings.set(ContentManager.IMAGE, imageSlideShow.isSelected()));
+            imageSlideShow.addActionListener(e -> amazor.settings.set(ContentManager.IMAGE_SLIDE_SHOW, imageSlideShow.isSelected()));
             frame.add(imageSlideShow);
 
             JList<String> imageType = new JList<>(TYPES);

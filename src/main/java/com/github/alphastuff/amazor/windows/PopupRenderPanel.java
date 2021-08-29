@@ -17,8 +17,10 @@ public class PopupRenderPanel extends JPanel {
     public Image image;
     public Image lastImage;
     private final ContentManager manager;
+    private Thread slideShow;
     private static final int SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.6);
     public PopupRenderPanel(Amazor amazor, JFrame frame) {
+
 
         frame.addKeyListener(new KeyListener() {
             @Override
@@ -45,9 +47,23 @@ public class PopupRenderPanel extends JPanel {
         setLocation(frame.getWidth()/28, frame.getHeight()/12);
 
         this.manager = new ContentManager(amazor.settings);
+        manager.reload();
 
+        slideShow = new Thread(() -> {
+            while (true) {
+                try {
+                    while (!manager.isImageSlideShowEnabled()) {
+                        Thread.sleep(1000);
+                    }
+                    Thread.sleep(20000);
+                    updateImage();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        slideShow.start();
         updateImage();
-
     }
 
     public void updateImage() {
