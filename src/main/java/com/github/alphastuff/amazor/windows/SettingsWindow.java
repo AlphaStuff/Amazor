@@ -2,10 +2,11 @@ package com.github.alphastuff.amazor.windows;
 import com.github.alphastuff.amazor.Amazor;
 import com.github.alphastuff.amazor.util.Checks;
 import com.github.alphastuff.amazor.util.ContentManager;
-
+import com.github.alphastuff.amazor.util.WebUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class SettingsWindow{
     private static SettingsWindow window;
@@ -66,10 +67,19 @@ public class SettingsWindow{
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setAlwaysOnTop(true);
 
+            ImageIcon edgeImg = new ImageIcon();
+            ImageIcon exitImg = new ImageIcon();
+            try {
+                edgeImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/edgePic.png").getScaledInstance(200, 250, Image.SCALE_DEFAULT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            // ----------------------------------------------------------------------------
-            ImageIcon edgeImg = new ImageIcon(new ImageIcon("src/main/resources/edgePic.png").getImage().getScaledInstance(200, 250, Image.SCALE_DEFAULT));
-            ImageIcon exitImg = new ImageIcon(new ImageIcon("src/main/resources/ePic.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+            try {
+                exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             JLabel edgePic = new JLabel();
             JLabel exitPic = new JLabel();
             frame.getContentPane().add(edgePic);
@@ -89,7 +99,6 @@ public class SettingsWindow{
             quoteEnabled.setForeground(Color.WHITE);
             imageAdvancedUrl.setForeground(Color.WHITE);
             imageEnabled.setForeground(Color.WHITE);
-
             imageEnabled.setBounds(10,20,153,15);
             imageAdvanced.setBounds(10,50,160,15);
             quoteEnabled.setBounds(10,80,100,15);

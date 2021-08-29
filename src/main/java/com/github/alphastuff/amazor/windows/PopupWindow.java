@@ -1,9 +1,15 @@
 package com.github.alphastuff.amazor.windows;
 import com.github.alphastuff.amazor.Amazor;
+import com.github.alphastuff.amazor.util.WebUtil;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class PopupWindow {
     public PopupRenderPanel popupRenderPanel;
@@ -11,10 +17,24 @@ public class PopupWindow {
         Runnable runnable = () -> {
             final JFrame frame = new JFrame();
 
-            // add buttons
-            ImageIcon exitImg = new ImageIcon(new ImageIcon("src/main/resources/ePic.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            ImageIcon minImg = new ImageIcon(new ImageIcon("src/main/resources/mPic.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-            ImageIcon sImg = new ImageIcon(new ImageIcon("src/main/resources/sPic.png").getImage().getScaledInstance(18, 18, Image.SCALE_DEFAULT));
+            ImageIcon exitImg= new ImageIcon();
+            ImageIcon minImg= new ImageIcon();
+            ImageIcon sImg= new ImageIcon();
+            try {
+                exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                minImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/mPic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                sImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/sPic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             JLabel exitPic = new JLabel();
             JLabel minPic = new JLabel();
             JLabel sPic = new JLabel();
@@ -25,15 +45,12 @@ public class PopupWindow {
             sPic.setBounds(293,7,18, 18);
             sPic.setIcon(sImg);
 
-
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
             frame.setSize(size,size);
             int x = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth()-size;
             int y = (int) GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight()-size;
             frame.setLocation(x,y);
-
             popupRenderPanel = new PopupRenderPanel(amazor, frame);
-            
             frame.setUndecorated(true);
             frame.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.6f));
             frame.setLayout(null);
@@ -42,16 +59,12 @@ public class PopupWindow {
             frame.getContentPane().add(minPic);
             frame.getContentPane().add(exitPic);
             frame.getContentPane().add(sPic);
-
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setAlwaysOnTop(true);
-
             frame.setVisible(true);
-
             FrameDragListener frameDragListener = new FrameDragListener(frame);
             frame.addMouseListener(frameDragListener);
             frame.addMouseMotionListener(frameDragListener);
-
             frame.requestFocus();
 
             exitPic.addMouseListener(new MouseAdapter() {
@@ -60,7 +73,6 @@ public class PopupWindow {
                     System.exit(0);
                 }
             });
-
 
             minPic.addMouseListener(new MouseAdapter() {
                 @Override
@@ -79,7 +91,6 @@ public class PopupWindow {
         SwingUtilities.invokeLater(runnable);
     }
 
-    // Drag frame around screen with mouse
     public static class FrameDragListener extends MouseAdapter {
 
         private final JFrame frame;
