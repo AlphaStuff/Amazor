@@ -17,9 +17,11 @@ public class PopupWindow {
             ImageIcon exitImg= null;
             ImageIcon minImg= null;
             ImageIcon sImg= null;
+            ImageIcon saveImg= null;
             try {
                 exitImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/ePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
                 minImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/mPic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+                saveImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/savePic.png").getScaledInstance(25, 25, Image.SCALE_DEFAULT));
                 sImg = new ImageIcon(WebUtil.readImage("https://raw.githubusercontent.com/AlphaStuff/Amazor/main/src/main/resources/sPic.png").getScaledInstance(18, 18, Image.SCALE_DEFAULT));
             } catch (IOException e) {
                 WebUtil.webError(e);
@@ -27,12 +29,15 @@ public class PopupWindow {
             JLabel exitPic = new JLabel();
             JLabel minPic = new JLabel();
             JLabel sPic = new JLabel();
+            JLabel savePic = new JLabel();
             exitPic.setBounds(340,3,25, 25);
             exitPic.setIcon(exitImg);
             minPic.setBounds(315,3,25, 25);
             minPic.setIcon(minImg);
             sPic.setBounds(293,7,18, 18);
             sPic.setIcon(sImg);
+            savePic.setBounds(15,3,18, 18);
+            savePic.setIcon(saveImg);
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
             frame.setSize(size,size);
@@ -48,6 +53,7 @@ public class PopupWindow {
             frame.getContentPane().add(minPic);
             frame.getContentPane().add(exitPic);
             frame.getContentPane().add(sPic);
+            frame.getContentPane().add(savePic);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setAlwaysOnTop(true);
             frame.setVisible(true);
@@ -77,6 +83,14 @@ public class PopupWindow {
                     new SettingsWindow(amazor);
                 }
             });
+
+            savePic.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                }
+            });
+
         };
         SwingUtilities.invokeLater(runnable);
     }
