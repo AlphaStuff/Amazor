@@ -36,6 +36,10 @@ public class SettingsWindow{
             imageEnabled.addActionListener(e -> amazor.settings.set(ContentManager.IMAGE, imageEnabled.isSelected()));
             frame.add(imageEnabled);
 
+            JCheckBox imageSlideShow = new JCheckBox("Enable slide show", manager.isImageEnabled());
+            imageEnabled.addActionListener(e -> amazor.settings.set(ContentManager.IMAGE, imageSlideShow.isSelected()));
+            frame.add(imageSlideShow);
+
             JList<String> imageType = new JList<>(TYPES);
             imageType.setSelectedIndex(Checks.translateType(manager.getImageType()));
             imageType.addListSelectionListener(e -> {
@@ -90,21 +94,25 @@ public class SettingsWindow{
             imageAdvancedUrl.setBackground(ELEMENT_BACKGROUND);
             imageEnabled.setBackground(ELEMENT_BACKGROUND);
             imageType.setBackground(ELEMENT_BACKGROUND);
+            imageSlideShow.setBackground(ELEMENT_BACKGROUND);
 
             imageType.setForeground(FOREGROUND_COLOR);
             imageAdvanced.setForeground(FOREGROUND_COLOR);
             imageAdvancedUrl.setForeground(FOREGROUND_COLOR);
             imageEnabled.setForeground(FOREGROUND_COLOR);
+            imageSlideShow.setForeground(FOREGROUND_COLOR);
 
             imageEnabled.setBounds(10,20,153,15);
             imageAdvanced.setBounds(10,50,160,15);
-            imageAdvancedUrl.setBounds(15,80,150,15);
+            imageSlideShow.setBounds(10,80,160,15);
+            imageAdvancedUrl.setBounds(15,110,150,15);
             imageType.setBounds(15,140,110,70);
 
             imageEnabled.setOpaque(false);
             imageAdvanced.setOpaque(false);
             imageAdvancedUrl.setOpaque(false);
             imageType.setOpaque(false);
+            imageSlideShow.setOpaque(false);
 
             frame.getContentPane().add(exitPic);
             frame.setVisible(true);
