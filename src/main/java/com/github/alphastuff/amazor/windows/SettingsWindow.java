@@ -57,7 +57,6 @@ public class SettingsWindow{
                 amazor.settings.set(ContentManager.QUOTE, quoteEnabled.isSelected());
                 amazor.reloadContent();
             });
-
             frame.add(imageAdvanced);
             frame.add(imageAdvancedUrl);
 
@@ -67,13 +66,19 @@ public class SettingsWindow{
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setAlwaysOnTop(true);
 
+
             // ----------------------------------------------------------------------------
+            ImageIcon edgeImg = new ImageIcon(new ImageIcon("src/main/resources/edgePic.png").getImage().getScaledInstance(200, 250, Image.SCALE_DEFAULT));
             ImageIcon exitImg = new ImageIcon(new ImageIcon("src/main/resources/ePic.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+            JLabel edgePic = new JLabel();
             JLabel exitPic = new JLabel();
-            exitPic.setBounds(170,3,25, 25);
+            frame.getContentPane().add(edgePic);
+            edgePic.setBounds(0,0,200, 250);
+            edgePic.setIcon(edgeImg);
+            exitPic.setBounds(170,7,25, 25);
             exitPic.setIcon(exitImg);
             frame.setUndecorated(true);
-            frame.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.6f));
+            frame.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.5f));
             imageAdvanced.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
             quoteEnabled.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
             imageAdvancedUrl.setBackground(new Color(0.1f, 0.1f, 0.1f, 0.3f));
@@ -85,11 +90,11 @@ public class SettingsWindow{
             imageAdvancedUrl.setForeground(Color.WHITE);
             imageEnabled.setForeground(Color.WHITE);
 
-            imageEnabled.setBounds(10,20,180,15);
-            imageAdvanced.setBounds(10,50,180,15);
-            quoteEnabled.setBounds(10,80,180,15);
-            imageAdvancedUrl.setBounds(10,110,180,15);
-            imageType.setBounds(10,140,180,100);
+            imageEnabled.setBounds(10,20,153,15);
+            imageAdvanced.setBounds(10,50,160,15);
+            quoteEnabled.setBounds(10,80,100,15);
+            imageAdvancedUrl.setBounds(15,110,150,15);
+            imageType.setBounds(15,140,150,70);
 
             imageEnabled.setOpaque(false);
             imageAdvanced.setOpaque(false);
