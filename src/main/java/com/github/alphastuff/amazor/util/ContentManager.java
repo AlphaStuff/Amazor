@@ -14,28 +14,23 @@ public record ContentManager(Settings settings) {
     }
 
     public boolean isImageEnabled() {
-        reload();
         return settings.getBoolean(IMAGE);
     }
 
     public String getImageType() {
-        reload();
         return settings.getString(IMAGE_TYPE);
     }
 
     public boolean isAdvancedImageEnabled() {
-        reload();
         return settings.getBoolean(IMAGE_ADVANCED);
     }
 
     public String getImageAdvancedUrl() {
-        reload();
         return settings.getString(IMAGE_ADVANCED_URL);
     }
 
-    public String ImageSlideShow() {
-        reload();
-        return settings.getString(IMAGE_SLIDE_SHOW);
+    public boolean isImageSlideShowEnabled() {
+        return settings.getBoolean(IMAGE_SLIDE_SHOW);
     }
 
 }
