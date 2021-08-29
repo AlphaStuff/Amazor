@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class PopupWindow {
+
+    public static boolean maximize = false;
     public PopupRenderPanel popupRenderPanel;
     public PopupWindow(Amazor amazor) {
         Runnable runnable = () -> {
@@ -47,7 +49,7 @@ public class PopupWindow {
             sPic.setIcon(sImg);
             savePic.setBounds(267,7,18, 18);
             savePic.setIcon(saveImg);
-            maxPic.setBounds(241,7,18, 18);
+            maxPic.setBounds(239,7,18, 18);
             maxPic.setIcon(maxImg);
 
             int size = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5.2);
@@ -96,6 +98,21 @@ public class PopupWindow {
                 }
             });
 
+            maxPic.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                    if (frame.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
+                        frame.setExtendedState(0);
+                        maximize = false;
+                    } else {
+                        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                        maximize = true;
+                    }
+                    popupRenderPanel.update();
+                }
+            });
+
             savePic.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -115,7 +132,7 @@ public class PopupWindow {
                         File file = chooser.getSelectedFile();
                         try {
                             file.createNewFile();
-                            ImageIO.write(toBufferedImage(popupRenderPanel.image), "PNG", file);
+                            ImageIO.write(toBufferedImage(popupRenderPanel.rawImage), "PNG", file);
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }

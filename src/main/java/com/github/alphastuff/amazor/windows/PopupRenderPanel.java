@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class PopupRenderPanel extends JPanel {
+    public Image rawImage;
     public Image image;
     public Image lastImage;
     private final ContentManager manager;
@@ -66,6 +67,15 @@ public class PopupRenderPanel extends JPanel {
         updateImage();
     }
 
+    public void update() {
+        if (PopupWindow.maximize) {
+           image = rawImage;
+           setSize(image.getWidth(null), image.getHeight(null));
+        } else {
+            updateImage();
+        }
+    }
+
     public void updateImage() {
         if(manager.isImageEnabled()) {
             lastImage = image;
@@ -86,6 +96,7 @@ public class PopupRenderPanel extends JPanel {
 
             }
             assert image != null;
+            rawImage = image;
             if (image.getWidth(null) < SIZE) updateImage();
             float maxW = (float) SIZE / image.getWidth(null);
             float maxH = (float) SIZE / image.getHeight(null);
