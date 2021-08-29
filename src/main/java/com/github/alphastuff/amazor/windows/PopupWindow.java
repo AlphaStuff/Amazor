@@ -59,6 +59,7 @@ public class PopupWindow {
             frame.getContentPane().add(exitPic);
             frame.getContentPane().add(sPic);
             frame.getContentPane().add(savePic);
+            frame.getContentPane().add(maxPic);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setAlwaysOnTop(true);
             frame.setVisible(true);
