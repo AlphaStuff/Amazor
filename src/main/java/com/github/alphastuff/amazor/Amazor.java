@@ -3,6 +3,7 @@ package com.github.alphastuff.amazor;
 import com.github.alphastuff.amazor.settings.Settings;
 import com.github.alphastuff.amazor.windows.PopupWindow;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,19 @@ public class Amazor {
         window.popupRenderPanel.updateImage();
     }
     public static void main(String[] args) {
+            if(System.getProperty("os.name").startsWith("win")) {
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedLookAndFeelException e) {
+                    e.printStackTrace();
+                }
+            }
             new Amazor();
     }
 
