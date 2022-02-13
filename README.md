@@ -1,3 +1,3 @@
 # Amazor
-An java desktop application that makes your day happier
+A java desktop application that makes your day happier
 
